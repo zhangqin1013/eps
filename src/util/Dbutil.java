@@ -1,4 +1,5 @@
 package util;
+
 /**
 
 
@@ -8,8 +9,6 @@ package util;
 
 * @author Lipeishan Zhangqin
 * @Date    2020.03.19
-
-* @version 1.00
 
 */
 import java.sql.Connection;
@@ -32,6 +31,5 @@ public class Dbutil {
 			con.close();
 		}
 	}
-
 
 }

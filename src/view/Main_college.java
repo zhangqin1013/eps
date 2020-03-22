@@ -1,5 +1,11 @@
 package view;
 
+/**
+ * FileName: MainCollege.java
+ * 二级学院功能界面
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.21
+ */
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 
 import dao.UserDao;
 import fuction.ChartTest;
@@ -64,9 +69,9 @@ public class Main_college extends javax.swing.JFrame {
 	/** Creates new form StudentViewInterFrm */
 	public Main_college() {
 		initComponents();
-		//userCollege=college;
-		//userMes user = new userMes(college);
-		//this.setLocation(300, 70);
+		// userCollege=college;
+		// userMes user = new userMes(college);
+		// this.setLocation(300, 70);
 		this.fillTable(new userMes());
 		this.setLocationRelativeTo(null);
 	}
@@ -79,7 +84,7 @@ public class Main_college extends javax.swing.JFrame {
 		try {
 			con = dbUtil.getCon();
 			ResultSet rs = userDao.SelectedList(con, currentcollegeID);
-			int num=0;
+			int num = 0;
 			while (rs.next()) {
 				num++;
 				Vector v = new Vector();
@@ -96,8 +101,49 @@ public class Main_college extends javax.swing.JFrame {
 				v.add(rs.getString("date"));
 				dtm.addRow(v);
 			}
-			if(num==0) {
-				JOptionPane.showMessageDialog(null,"暂无信息!");
+			if (num == 0) {
+				JOptionPane.showMessageDialog(null, "暂无信息!");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.closeCon(con);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void fillTable1(userMes user) {
+		DefaultTableModel dtm = (DefaultTableModel) userTable.getModel();
+		String currentcollege = logOn.currentCollege.getCollege();
+		dtm.setRowCount(0);
+		Connection con = null;
+		try {
+			con = dbUtil.getCon();
+			ResultSet rs = userDao.Select(con, user, currentcollege);
+			int num = 0;
+			while (rs.next()) {
+				num++;
+				Vector v = new Vector();
+				v.add(rs.getString("userId"));
+				v.add(rs.getString("userName"));
+				v.add(rs.getString("userSex"));
+				v.add(rs.getString("userCollege"));
+				v.add(rs.getString("userPro"));
+				v.add(rs.getString("userCity"));
+				v.add(rs.getString("userTemperature"));
+				v.add(rs.getString("userArrive"));
+				v.add(rs.getString("userSympotom"));
+				v.add(rs.getString("userCheck"));
+				v.add(rs.getString("date"));
+				dtm.addRow(v);
+			}
+			if (num == 0) {
+				JOptionPane.showMessageDialog(null, "暂无信息!");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -140,8 +186,9 @@ public class Main_college extends javax.swing.JFrame {
 
 		userTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-		}, new String[] { "学号/工号", "姓名", "性别", "学院","省份", "城市", "体温","返校情况", "疑似情况", "确诊情况", "日期" }) {
-			   boolean[] canEdit = new boolean[] { false, false,false,false, false, false, false, false, false, false, false };
+		}, new String[] { "学号/工号", "姓名", "性别", "学院", "省份", "城市", "体温", "返校情况", "疑似情况", "确诊情况", "日期" }) {
+			boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false, false,
+					false };
 
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
 				return canEdit[columnIndex];
@@ -184,7 +231,7 @@ public class Main_college extends javax.swing.JFrame {
 				}
 			}
 		});
-		
+
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +252,7 @@ public class Main_college extends javax.swing.JFrame {
 						.addComponent(proTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(56, 56, 56).addComponent(jb_search).addContainerGap(85, Short.MAX_VALUE))
-				
+
 				.addGroup(jPanel1Layout.createSequentialGroup().addGap(78, 78, 78).addComponent(jLabel5)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(cityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104,
@@ -218,11 +265,11 @@ public class Main_college extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(checkTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(78,78, 78).addComponent(jLabel8)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(dateTxt,
-								javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(56, 56, 56).addComponent(jb_graph).addContainerGap(85, Short.MAX_VALUE)
-						)
+						.addGap(78, 78, 78).addComponent(jLabel8)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(56, 56, 56).addComponent(jb_graph).addContainerGap(85, Short.MAX_VALUE))
 
 		);
 		jPanel1Layout
@@ -255,8 +302,7 @@ public class Main_college extends javax.swing.JFrame {
 								.addComponent(jLabel7)
 								.addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel8)).addContainerGap(38, Short.MAX_VALUE)
-								));
+								.addComponent(jLabel8)).addContainerGap(38, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -273,13 +319,14 @@ public class Main_college extends javax.swing.JFrame {
 						.addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE,250,
+						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(36, Short.MAX_VALUE)));
 
 		pack();
 
 	}
+
 	/**
 	 * 相应数据获取
 	 * 
@@ -287,7 +334,7 @@ public class Main_college extends javax.swing.JFrame {
 	 * @throws Exception
 	 */
 	protected userMes getUser() throws Exception {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 		String userID = this.idTxt.getText();
 		String userName = this.nameTxt.getText();
 		String userSex = this.sexTxt.getText();
@@ -296,39 +343,77 @@ public class Main_college extends javax.swing.JFrame {
 		String userArrive = this.arriveTxt.getText();
 		String userCheck = this.checkTxt.getText();
 		String college = userCollege;
-		String date = this.dateTxt.getText();  
+		String date = this.dateTxt.getText();
 		if (StringUtil.isEmpty(userID)) {
 			userID = "-1";
-			
+
 		}
 		if (StringUtil.isEmpty(date)) {
 			date = "-1";
-			
+
 		}
-		//System.out.print(date);
-		userMes user = new userMes(Integer.parseInt(userID), userName, userSex,college,userPro, userCity, userArrive,userCheck,Integer.parseInt(date));
+		// System.out.print(date);
+		userMes user = new userMes(Integer.parseInt(userID), userName, userSex, college, userPro, userCity, userArrive,
+				userCheck, Integer.parseInt(date));
 		return user;
 	}
+
 	protected void jb_graphActionPerformed(ActionEvent evt) throws Exception {
 		// TODO Auto-generated method stub
-		userMes user = getUser();
-		Connection con = null;
-		con = dbUtil.getCon();
-		ResultSet rs = userDao.Chart(con, user);
-		ChartTest chart = new ChartTest();
-		chart.getChart1(rs);
+		String userID = this.idTxt.getText();
+		String userName = this.nameTxt.getText();
+		String userSex = this.sexTxt.getText();
+		String userPro = this.proTxt.getText();
+		String userCity = this.cityTxt.getText();
+		String userArrive = this.arriveTxt.getText();
+		String userCheck = this.checkTxt.getText();
+		String date = this.dateTxt.getText();
+		if (StringUtil.isEmpty(userID)) {
+			userID = "-1";
+
+		}
+		if (StringUtil.isEmpty(date)) {
+			date = "-1";
+
+		}
+	
+		if (StringUtil.isEmpty(userSex)) {
+			if (StringUtil.isEmpty(userCheck)) {
+				userCheck = "是";
+			}
+			userMes user = new userMes(Integer.parseInt(userID), userName, userSex,userPro, userCity,
+					userArrive, userCheck, Integer.parseInt(date));
+			Connection con = null;
+			con = dbUtil.getCon();
+			ResultSet rs = userDao.ChartSex(con, user);
+			ChartTest chart = new ChartTest();
+			chart.getChart1(rs);
+		} else {
+			userMes user = new userMes(Integer.parseInt(userID), userName, userSex,userPro, userCity,
+					userArrive, userCheck, Integer.parseInt(date));
+			// userMes user = getUser();
+			Connection con = null;
+			con = dbUtil.getCon();
+			ResultSet rs = userDao.ChartCheck(con, user);
+			ChartTest chart = new ChartTest();
+			chart.getChart2(rs);
+		}
 	}
 
 	private void jb_searchActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+		Dbutil.getCon();
+		
 		userMes user = getUser();
-		this.fillTable(user);
+		this.fillTable1(user);
 	}
+
 	/*
 	 * 重置
 	 */
 	private void jb_resetActionPerformed(java.awt.event.ActionEvent evt) {
 		this.resetValue();
 	}
+
 	private void resetValue() {
 		this.idTxt.setText("");
 		this.nameTxt.setText("");
@@ -339,12 +424,9 @@ public class Main_college extends javax.swing.JFrame {
 		this.checkTxt.setText("");
 		this.dateTxt.setText("");
 	}
-	/*public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Main_college().setVisible(true);
-			}
-		});
-	}*/
+	/*
+	 * public static void main(String args[]) { java.awt.EventQueue.invokeLater(new
+	 * Runnable() { public void run() { new Main_college().setVisible(true); } }); }
+	 */
 
 }

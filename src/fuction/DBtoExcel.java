@@ -1,10 +1,10 @@
 package fuction;
 
-/*
- * 将查询结果写入excel中
- * Filename:DBtoExcel.java
- * @author Lipeishan,Zhangqin
- * @Date    2020.03.20
+/**
+ * FileName: DBtoExcel.java
+ * 导出excel
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.19
  */
 import java.io.File;
 import jxl.*;

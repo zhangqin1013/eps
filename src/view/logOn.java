@@ -92,7 +92,6 @@ public class logOn extends JFrame {
 
 		jLabel3.setText("密码");
 
-
 		buttonGroup1.add(userButton);
 		userButton.setFont(font);
 		userButton.setText("学生/教师");
@@ -122,20 +121,15 @@ public class logOn extends JFrame {
 		});
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGap(100, 100, 100)
-				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-						.addComponent(jLabel1)
-						
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup().addGap(100, 100, 100)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING).addComponent(jLabel1)
+
 						.addGroup(layout.createSequentialGroup().addGroup(layout
 								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-										layout.createSequentialGroup().addComponent(jLabel3)
-										.addGap(30, 30, 30))
-								.addGroup(layout.createSequentialGroup().addComponent(jLabel2)
-										.addGap(30, 30, 30))
-								)
+										layout.createSequentialGroup().addComponent(jLabel3).addGap(30, 30, 30))
+								.addGroup(layout.createSequentialGroup().addComponent(jLabel2).addGap(30, 30, 30)))
 								.addGap(6, 6, 6)
 								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
 										.addComponent(passwordTxt, 0, 0, Short.MAX_VALUE)
@@ -145,8 +139,8 @@ public class logOn extends JFrame {
 												layout.createSequentialGroup().addGroup(layout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 														.addComponent(jb_logOn).addComponent(userButton))
-														
-												.addGroup(layout
+
+														.addGroup(layout
 																.createParallelGroup(
 																		javax.swing.GroupLayout.Alignment.LEADING,
 																		false)
@@ -155,7 +149,6 @@ public class logOn extends JFrame {
 
 																)
 
-																
 																.addGroup(layout.createSequentialGroup()
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,26 +165,21 @@ public class logOn extends JFrame {
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)))))))
 				.addContainerGap(143, Short.MAX_VALUE)));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-						.addContainerGap(77, Short.MAX_VALUE)
-						.addComponent(jLabel1)
-						.addGap(39, 39, 39)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				javax.swing.GroupLayout.Alignment.TRAILING,
+				layout.createSequentialGroup().addContainerGap(77, Short.MAX_VALUE).addComponent(jLabel1)
+						.addGap(39, 39, 39).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jLabel2)
-								.addComponent(userNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addComponent(jLabel2).addComponent(userNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(jLabel3).addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								
-								.addComponent(userButton)
-								.addComponent(collegeButton)
-								.addComponent(adminButton)
-								)
+
+								.addComponent(userButton).addComponent(collegeButton).addComponent(adminButton))
 						.addGap(30, 30, 30)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(jb_reset).addComponent(jb_logOn))
@@ -199,6 +187,7 @@ public class logOn extends JFrame {
 
 		pack();
 	}
+
 	/*
 	 * 登录
 	 */
@@ -222,7 +211,7 @@ public class logOn extends JFrame {
 				currentUser = logOnDao.login(con, user);
 				if (currentUser != null) {
 					this.dispose();
-					// 
+					//
 					new Main_user().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(this, "用户名或密码错误!");
@@ -241,15 +230,15 @@ public class logOn extends JFrame {
 			}
 		} // 防控办登录
 		else if (this.adminButton.isSelected()) {
-			//User user = new User(Integer.parseInt(userName), password);
+			// User user = new User(Integer.parseInt(userName), password);
 			Admin admin = new Admin(Integer.parseInt(userName), password);
 			try {
 				con = dbutil.getCon();
-				 currentAdmin = logOnDao.login(con, admin);
-				//currentUser = logOnDao.login(con, user);
+				currentAdmin = logOnDao.login(con, admin);
+				// currentUser = logOnDao.login(con, user);
 				if (currentAdmin != null) {
 					this.dispose();
-					
+
 					new Main_admin().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(this, "用户名或密码错误!");
@@ -316,10 +305,11 @@ public class logOn extends JFrame {
 			}
 		});
 	}
+
 	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
 
 	private static final long TEST_SEC = 15 * 1000;
-	
+
 	public void timeTig() {
 
 		// 使用默认时区和语言环境获得一个日历
@@ -343,15 +333,16 @@ public class logOn extends JFrame {
 			time = addDay(time, 1);
 			System.exit(0);
 		}
-		//System.out.println("启动时间:" + time);
+		// System.out.println("启动时间:" + time);
 		// 启动计划
 		Timer timer = new Timer();
 		timer.schedule(new TimeTrigger(), time, PERIOD_DAY);
-		//System.out.println("当前时间:" + new Date());
+		// System.out.println("当前时间:" + new Date());
 	}
+
 	// 增加一天
 	public Date addDay(Date date, int num) {
-		JOptionPane.showMessageDialog(null,"错过打卡时间!");
+		JOptionPane.showMessageDialog(null, "错过打卡时间!");
 		Calendar startDT = Calendar.getInstance();
 		startDT.setTime(date);
 		startDT.add(Calendar.DAY_OF_MONTH, num);

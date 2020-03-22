@@ -1,9 +1,9 @@
 package view;
-/*
- *  FileName: Main_user.java
- *  师生信息填写界面
- *  @author Lipeishan，ZhangQin
- *  @Date  2020.03.19
+/**
+ * FileName: pieChart.java
+ * 用户功能界面
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.20
  */
 import java.sql.Connection;
 

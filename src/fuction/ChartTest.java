@@ -1,5 +1,11 @@
 package fuction;
 
+/**
+ * FileName: ChartTest.java
+ * 产生柱状图界面
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.21
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -29,91 +35,81 @@ import util.Dbutil;
 
 public class ChartTest {
 	ChartPanel frame1;
-	//某天确诊人数统计
-	public void getChart1(ResultSet rs) throws Exception {	
-		DefaultCategoryDataset dataset=new DefaultCategoryDataset();
-		while(rs.next()){
-		    dataset.setValue(
-		            rs.getInt("num"),
-		            "人数",
-		            rs.getString("userSex")
-		    );
+
+	// 某天确诊人数统计
+	public void getChart1(ResultSet rs) throws Exception {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		while (rs.next()) {
+			dataset.setValue(rs.getInt("num"), "人数", rs.getString("userSex"));
 		}
 		// 创建简单的条形图
-		JFreeChart freeChart=ChartFactory.createBarChart(
-		        "确诊信息",// 图表标题
-		        "性别",
-		        "人数",
-		        dataset,//数据集，即要显示在图表上的数据
-		        PlotOrientation.VERTICAL,
-		        true,//是否显示图例
-		        false,//是否显示提示
-		        false//是否生成URL连接
+		JFreeChart freeChart = ChartFactory.createBarChart("确诊信息", // 图表标题
+				"性别", "人数", dataset, // 数据集，即要显示在图表上的数据
+				PlotOrientation.VERTICAL, true, // 是否显示图例
+				false, // 是否显示提示
+				false// 是否生成URL连接
 		);
 		// 获取图表区域对象
-				CategoryPlot plot = freeChart.getCategoryPlot();
-				// 水平底部列表
-				CategoryAxis domainAxis = plot.getDomainAxis(); 
-				// 水平底部标题
-				domainAxis.setLabelFont(new Font("黑体", Font.BOLD, 14)); 
-				// 垂直标题
-				domainAxis.setTickLabelFont(new Font("宋体", Font.BOLD, 12)); 
-				// 获取柱状
-				ValueAxis rangeAxis = plot.getRangeAxis();
-				rangeAxis.setLabelFont(new Font("黑体", Font.BOLD, 15));
-				freeChart.getLegend().setItemFont(new Font("黑体", Font.BOLD, 15));
-				// 设置标题字体
-				freeChart.getTitle().setFont(new Font("宋体", Font.BOLD, 20));
+		CategoryPlot plot = freeChart.getCategoryPlot();
+		// 水平底部列表
+		CategoryAxis domainAxis = plot.getDomainAxis();
+		// 水平底部标题
+		domainAxis.setLabelFont(new Font("黑体", Font.BOLD, 14));
+		// 垂直标题
+		domainAxis.setTickLabelFont(new Font("宋体", Font.BOLD, 12));
+		// 获取柱状
+		ValueAxis rangeAxis = plot.getRangeAxis();
+		rangeAxis.setLabelFont(new Font("黑体", Font.BOLD, 15));
+		freeChart.getLegend().setItemFont(new Font("黑体", Font.BOLD, 15));
+		// 设置标题字体
+		freeChart.getTitle().setFont(new Font("宋体", Font.BOLD, 20));
 
-				frame1 = new ChartPanel(freeChart, true); 
-				JFrame frame = new JFrame("柱状图");
-				  frame.add(frame1); // 添加柱形图
-				  frame.setBounds(50, 50, 800, 600);
-				  frame.setVisible(true);
-		//柱状图显示
-		//SHOW(freeChart,800,500);
-		//关闭数据库；连接
-		//Dbutil.closeCon(rs, stmt, conn);  
+		frame1 = new ChartPanel(freeChart, true);
+		JFrame frame = new JFrame("柱状图");
+		frame.add(frame1); // 添加柱形图
+		frame.setBounds(50, 50, 800, 600);
+		frame.setVisible(true);
+		// 柱状图显示
+		// SHOW(freeChart,800,500);
+		// 关闭数据库；连接
+		// Dbutil.closeCon(rs, stmt, conn);
 	}
-	//柱状图显示设置
-		public void SHOW(JFreeChart freeChart,int width,int height) {
-			//以面板显示，创建一个图表面板
-	        ChartPanel chartPanel=new ChartPanel(freeChart);
-	        //设置大小
-	        chartPanel.setPreferredSize(new java.awt.Dimension(560,400));
-	        //创建一个主窗口来显示面板
-	        JFrame frame=new JFrame("疫情统计图");
-	        frame.setLocation(500,400);
-	        frame.setSize(width,height);
-	        //将图表面板设置为主窗口的内容面板
-	        frame.setContentPane(chartPanel);
-	        //显示主窗口
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setVisible(true);
-	        
-	        //设置图表
-	        freeChart.getTitle().setFont(new Font("隶书", Font.ITALIC, 15));//设置标题
-			//设置图例类别字体         
-			freeChart.getLegend().setItemFont(new Font("宋体", Font.BOLD, 15));  
-			freeChart.setBackgroundPaint(Color.WHITE);
-			CategoryPlot categoryPlot=freeChart.getCategoryPlot();//用于设置显示特性
-			categoryPlot.setBackgroundPaint(Color.WHITE);
-			categoryPlot.setDomainGridlinePaint(Color.BLACK);//分类轴网格线条颜色
-			categoryPlot.setDomainGridlinesVisible(true);
-			categoryPlot.setRangeGridlinePaint(Color.GREEN);//数据轴网格线条颜色
-			
-			CategoryAxis domainAxis=categoryPlot.getDomainAxis(); //水平底部列表 
-			domainAxis.setLabelFont(new Font("黑体",Font.BOLD,14)); //水平底部标题 
-			domainAxis.setTickLabelFont(new Font("宋体",Font.BOLD,12)); //垂直标题
-			ValueAxis rangeAxis=categoryPlot.getRangeAxis();//获取柱状 
-			rangeAxis.setLabelFont(new Font("黑体",Font.BOLD,15)); //设置柱状标题
-			
-			CategoryAxis axis = categoryPlot.getDomainAxis(); //x轴
-			axis.setMaximumCategoryLabelLines(10); //标题行数，每个字显示一行
-			axis.setMaximumCategoryLabelWidthRatio(0.5f); //每个标题宽度，控制为1个字的宽度
-			
-			NumberAxis axis1 = (NumberAxis)freeChart.getCategoryPlot().getRangeAxis();
-			//axis1.setTickUnit(new NumberTickUnit(0.5D);//0.5为一个间隔单位
-			axis1.setTickUnit(new NumberTickUnit(1D));//1为一个间隔单位
+
+	public void getChart2(ResultSet rs) throws Exception {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		while (rs.next()) {
+			dataset.setValue(rs.getInt("num"), "人数", rs.getString("userCheck"));
 		}
+		// 创建简单的条形图
+		JFreeChart freeChart = ChartFactory.createBarChart("是否确诊", // 图表标题
+				"性别", "人数", dataset, // 数据集，即要显示在图表上的数据
+				PlotOrientation.VERTICAL, true, // 是否显示图例
+				false, // 是否显示提示
+				false// 是否生成URL连接
+		);
+		// 获取图表区域对象
+		CategoryPlot plot = freeChart.getCategoryPlot();
+		// 水平底部列表
+		CategoryAxis domainAxis = plot.getDomainAxis();
+		// 水平底部标题
+		domainAxis.setLabelFont(new Font("黑体", Font.BOLD, 14));
+		// 垂直标题
+		domainAxis.setTickLabelFont(new Font("宋体", Font.BOLD, 12));
+		// 获取柱状
+		ValueAxis rangeAxis = plot.getRangeAxis();
+		rangeAxis.setLabelFont(new Font("黑体", Font.BOLD, 15));
+		freeChart.getLegend().setItemFont(new Font("黑体", Font.BOLD, 15));
+		// 设置标题字体
+		freeChart.getTitle().setFont(new Font("宋体", Font.BOLD, 20));
+
+		frame1 = new ChartPanel(freeChart, true);
+		JFrame frame = new JFrame("柱状图");
+		frame.add(frame1); // 添加柱形图
+		frame.setBounds(50, 50, 800, 600);
+		frame.setVisible(true);
+		// 柱状图显示
+		// SHOW(freeChart,800,500);
+		// 关闭数据库；连接
+		// Dbutil.closeCon(rs, stmt, conn);
+	}
 }

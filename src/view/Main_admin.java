@@ -1,10 +1,10 @@
 package view;
 
-/*
- * 防疫办功能
- * Filename:DBtoExcel.java
- * @author Lipeishan,Zhangqin
- * @Date    2020.03.20
+/**
+ * FileName: Main_admin.java
+ * 防疫办功能界面
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.21
  */
 import java.awt.event.ActionEvent;
 import java.util.Date;
@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.sql.*;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,7 +66,7 @@ public class Main_admin extends javax.swing.JFrame {
 	// 图表
 	private javax.swing.JButton jb_graph;
 	// 图表
-		private javax.swing.JButton jb_Bgraph;
+	private javax.swing.JButton jb_Bgraph;
 	// 导出到excel
 	private javax.swing.JButton jb_excel;
 	private javax.swing.JTable userTable;
@@ -88,7 +89,7 @@ public class Main_admin extends javax.swing.JFrame {
 		try {
 			con = dbUtil.getCon();
 			ResultSet rs = userDao.StudentList(con, user);
-			int num=0;
+			int num = 0;
 			while (rs.next()) {
 				num++;
 				Vector v = new Vector();
@@ -105,8 +106,8 @@ public class Main_admin extends javax.swing.JFrame {
 				v.add(rs.getString("date"));
 				dtm.addRow(v);
 			}
-			if(num==0) {
-				JOptionPane.showMessageDialog(null,"暂无信息!");
+			if (num == 0) {
+				JOptionPane.showMessageDialog(null, "暂无信息!");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -153,9 +154,10 @@ public class Main_admin extends javax.swing.JFrame {
 
 		setTitle("防疫信息查看");
 
-		userTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-		}, new String[] { "学号/工号", "姓名", "性别", "学院", "省份", "城市", "体温", "返校情况", "疑似情况", "确诊情况", "日期" }) {
-			boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false, false,false };
+		userTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
+				new String[] { "学号/工号", "姓名", "性别", "学院", "省份", "城市", "体温", "返校情况", "疑似情况", "确诊情况", "日期" }) {
+			boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false, false,
+					false };
 
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
 				return canEdit[columnIndex];
@@ -180,7 +182,7 @@ public class Main_admin extends javax.swing.JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
 					jb_searchActionPerformed(evt);
-					//jb_resetActionPerformed(evt);
+					// jb_resetActionPerformed(evt);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -197,7 +199,7 @@ public class Main_admin extends javax.swing.JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//jb_resetActionPerformed(evt);
+				// jb_resetActionPerformed(evt);
 			}
 		});
 
@@ -205,16 +207,28 @@ public class Main_admin extends javax.swing.JFrame {
 		jb_excel.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
-					String urls=jb_excelActionPerformed(evt);
-					//jb_resetActionPerformed(evt);
-					JOptionPane.showMessageDialog(null,"数据导出成功!路径为:"+urls);
+					String urls = jb_excelActionPerformed(evt);
+					// jb_resetActionPerformed(evt);
+					JOptionPane.showMessageDialog(null, "数据导出成功!路径为:" + urls);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		
+
+		jb_Bgraph.setText("当日填报情况");
+		jb_Bgraph.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+					jb_BgraphActionPerformed(evt);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +244,8 @@ public class Main_admin extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(sexTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(56, 56, 56).addComponent(jb_search).addContainerGap(85, Short.MAX_VALUE))
+						.addGap(56, 56, 56).addComponent(jb_search).addGap(56, 56, 56).addComponent(jb_Bgraph)
+						.addContainerGap(85, Short.MAX_VALUE))
 
 				.addGroup(jPanel1Layout.createSequentialGroup().addGap(78, 78, 78).addComponent(jLabel9)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,7 +255,7 @@ public class Main_admin extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(proTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
-						
+
 						.addGap(78, 78, 78).addComponent(jLabel5)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(cityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
@@ -253,12 +268,12 @@ public class Main_admin extends javax.swing.JFrame {
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(69, 69, 69).addComponent(jLabel7)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						
+
 						.addComponent(checkTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(78, 78, 78).addComponent(jLabel8)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						
+
 						.addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(56, 56, 56).addComponent(jb_excel).addContainerGap(85, Short.MAX_VALUE))
@@ -270,7 +285,7 @@ public class Main_admin extends javax.swing.JFrame {
 								.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1)
 								.addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jb_search)
+								.addComponent(jb_search).addComponent(jb_Bgraph)
 								.addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(jLabel2)
@@ -322,6 +337,7 @@ public class Main_admin extends javax.swing.JFrame {
 		pack();
 
 	}
+
 	/**
 	 * 相应数据获取
 	 * 
@@ -329,7 +345,7 @@ public class Main_admin extends javax.swing.JFrame {
 	 * @throws Exception
 	 */
 	protected userMes getUser() throws Exception {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 		String userID = this.idTxt.getText();
 		String userName = this.nameTxt.getText();
 		String userSex = this.sexTxt.getText();
@@ -338,20 +354,21 @@ public class Main_admin extends javax.swing.JFrame {
 		String userArrive = this.arriveTxt.getText();
 		String userCheck = this.checkTxt.getText();
 		String userCollege = this.collegeTxt.getText();
-		String date = this.dateTxt.getText();  
+		String date = this.dateTxt.getText();
 		if (StringUtil.isEmpty(userID)) {
 			userID = "-1";
-			
+
 		}
 		if (StringUtil.isEmpty(date)) {
 			date = "-1";
-			
+
 		}
-		//System.out.print(date);
-		userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege,userPro, userCity, userArrive,userCheck,Integer.parseInt(date));
+		// System.out.print(date);
+		userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+				userArrive, userCheck, Integer.parseInt(date));
 		return user;
 	}
-	
+
 	/**
 	 * 按下导出的具体功能实现
 	 * 
@@ -362,9 +379,10 @@ public class Main_admin extends javax.swing.JFrame {
 		// TODO Auto-generated method stub
 		DBtoExcel dBtoExcel = new DBtoExcel();
 		userMes user = getUser();
-		String urls=this.Write(user);
+		String urls = this.Write(user);
 		return urls;
 	}
+
 	private String Write(userMes user) throws Exception {
 		Vector columnName = new Vector();
 		columnName.add("学号/工号");
@@ -381,21 +399,62 @@ public class Main_admin extends javax.swing.JFrame {
 		Connection con = null;
 		con = dbUtil.getCon();
 		ResultSet rs = userDao.StudentList(con, user);
-		String urls="D:/1.xls";
+		String urls = "D:/1.xls";
 		new DBtoExcel().WriteExcel(rs, urls, "防疫信息", columnName);
 		return urls;
 	}
+
 	/*
 	 * 图表显示功能实现
 	 */
 	private void jb_graphActionPerformed(ActionEvent evt) throws Exception {
 		// TODO Auto-generated method stub
-		userMes user = getUser();
-		Connection con = null;
-		con = dbUtil.getCon();
-		ResultSet rs = userDao.Chart(con, user);
-		ChartTest chart = new ChartTest();
-		chart.getChart1(rs);
+		String userID = this.idTxt.getText();
+		String userName = this.nameTxt.getText();
+		String userSex = this.sexTxt.getText();
+		String userPro = this.proTxt.getText();
+		String userCity = this.cityTxt.getText();
+		String userArrive = this.arriveTxt.getText();
+		String userCheck = this.checkTxt.getText();
+		String userCollege = this.collegeTxt.getText();
+		String date = this.dateTxt.getText();
+		if (StringUtil.isEmpty(userID)) {
+			userID = "-1";
+
+		}
+		if (StringUtil.isEmpty(date)) {
+			date = "-1";
+
+		}
+		if (StringUtil.isEmpty(userSex)) {
+			if (StringUtil.isEmpty(userCheck)) {
+				userCheck = "是";
+
+			}
+			userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+					userArrive, userCheck, Integer.parseInt(date));
+			Connection con = null;
+			con = dbUtil.getCon();
+			ResultSet rs = userDao.Chart(con, user);
+			ChartTest chart = new ChartTest();
+			chart.getChart1(rs);
+		} else {
+			userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+					userArrive, userCheck, Integer.parseInt(date));
+			// userMes user = getUser();
+			Connection con = null;
+			con = dbUtil.getCon();
+			ResultSet rs = userDao.Chart1(con, user);
+			ChartTest chart = new ChartTest();
+			chart.getChart2(rs);
+		}
+	}
+
+	/* 显示饼状图 */
+	protected void jb_BgraphActionPerformed(ActionEvent evt) throws Exception {
+		String userCollege = this.collegeTxt.getText();
+		pieChart chart = new pieChart();
+		chart.pieChart1(userCollege);
 	}
 
 	/*
@@ -405,4 +464,12 @@ public class Main_admin extends javax.swing.JFrame {
 		userMes user = getUser();
 		this.fillTable(user);
 	}
+
+	/*public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new Main_admin().setVisible(true);
+			}
+		});
+	}*/
 }
