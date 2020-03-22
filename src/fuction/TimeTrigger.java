@@ -1,37 +1,28 @@
 package fuction;
 
+/**
+ * FileName: TimeTrigger.java
+ * 登录界面
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.21
+ */
 import javax.swing.JOptionPane;
-
-import java.util.Calendar;
-
-import java.util.Date;
-
-import java.util.Timer;
-
- 
 
 /**
 
- * 每天触发一次任务，实现短信自动发送
+ * 每天触发一次任务，自动发送提示
 
  */
 
 import java.util.TimerTask;
 
-import javax.swing.JOptionPane;
-
- 
-
-public class TimeTrigger extends TimerTask{
-
+public class TimeTrigger extends TimerTask {
 
 	@Override
-
 	public void run() {
 
-		JOptionPane.showMessageDialog(null,"打卡时间到了!");
+		JOptionPane.showMessageDialog(null, "打卡时间还有五分钟截止!");
 
 	}
 
 }
-

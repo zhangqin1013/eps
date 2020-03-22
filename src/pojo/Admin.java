@@ -1,5 +1,11 @@
 package pojo;
 
+/**
+ * FileName: Admin.java
+ * 防控办登录实体类
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.19
+ */
 import java.sql.Date;
 
 public class Admin {

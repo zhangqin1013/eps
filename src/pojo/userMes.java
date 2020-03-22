@@ -1,4 +1,10 @@
 package pojo;
+/**
+ * FileName: Admin.java
+ * 防控信息办登录实体类
+ * @author Lipeishan，ZhangQin
+ * @Date  2020.03.19
+ */
 import java.util.Date;
 public class userMes {
 	private int userId=-1;
@@ -86,6 +92,11 @@ public class userMes {
 		super();
 		this.status=status;
 		this.num=num;
+	}
+	public userMes(int date) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.date=date;
 	}
 	public int getUserId() {
 		return userId;

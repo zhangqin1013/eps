@@ -1,6 +1,8 @@
 package util;
+
 /**
  * ÅÐ¶Ï×Ö·û´®
+ * 
  * @author Lipeishan,Zhangqin
  *
  */
