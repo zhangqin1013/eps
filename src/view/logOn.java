@@ -24,9 +24,7 @@ import pojo.College;
 import util.Dbutil;
 import util.StringUtil;
 
-/*
- * 登录界面
- */
+/** 登录界面*/
 public class logOn extends JFrame {
 	// 表示登录身份
 	private ButtonGroup buttonGroup1;
@@ -188,9 +186,7 @@ public class logOn extends JFrame {
 		pack();
 	}
 
-	/*
-	 * 登录
-	 */
+	/** 登录*/
 	private void jb_logOnActionPerformed(java.awt.event.ActionEvent evt) {
 		String userName = userNameTxt.getText();
 		String password = new String(passwordTxt.getPassword());
@@ -283,9 +279,7 @@ public class logOn extends JFrame {
 
 	}
 
-	/*
-	 * 重置功能
-	 */
+	/** 重置功能*/
 	private void jb_resetActionPerformed(java.awt.event.ActionEvent evt) {
 		this.resetValue();
 	}

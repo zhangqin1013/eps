@@ -16,6 +16,14 @@ import pojo.College;
 import pojo.User;
 
 public class LogOnDao {
+	/**
+	 * 用户登录
+	 * 
+	 * @param con     数据库连接
+	 * @param student 具体的用户类
+	 * @return 返回结果
+	 * @throws Exception
+	 */
 	public User login(Connection con, User student) throws Exception {
 		User resultStu = null;
 		String sql = "select * from user where id=? and password=?";
@@ -31,6 +39,14 @@ public class LogOnDao {
 		return resultStu;
 	}
 
+	/**
+	 * 防控办登录
+	 * 
+	 * @param con   连接数据库
+	 * @param admin 防控办实体
+	 * @return
+	 * @throws SQLException
+	 */
 	public Admin login(Connection con, Admin admin) throws SQLException {
 		Admin resultStu = null;
 		String sql = "select * from admin1 where id=? and password=?";
@@ -46,6 +62,14 @@ public class LogOnDao {
 		return resultStu;
 	}
 
+	/**
+	 * 二级学院登录
+	 * 
+	 * @param con     连接数据库
+	 * @param college 学院实体
+	 * @return
+	 * @throws SQLException
+	 */
 	public College login(Connection con, College college) throws SQLException {
 		College resultStu = null;
 		String sql = "select * from college,mes where college.id=? and college.password=? and college.college=mes.userCollege";

@@ -28,7 +28,7 @@ public class Main_user extends javax.swing.JFrame {
 	private JTextField userIDTxt;
 	// 姓名
 	private JTextField userNameTxt;
-	// b
+	// 性别
 	private JTextField userSexTxt;
 	//学院
 	private JTextField userCollegeTxt;
@@ -78,9 +78,7 @@ public class Main_user extends javax.swing.JFrame {
 		this.setLocationRelativeTo(null);
 	}
 
-	/*
-	 * 页面设置
-	 */
+	/** 页面设置 */
 	private void initComponents() {
 		jLabel1 = new javax.swing.JLabel();
 		jLabel2 = new javax.swing.JLabel();
@@ -246,9 +244,7 @@ public class Main_user extends javax.swing.JFrame {
 
 	}
 
-	/*
-	 * 添加信息
-	 */
+	/** 添加信息*/
 	private void jb_addActionPerformed(java.awt.event.ActionEvent evt) {
 		String userName = this.userNameTxt.getText();
 		String userId = this.userIDTxt.getText();
@@ -320,16 +316,12 @@ public class Main_user extends javax.swing.JFrame {
 		}
 
 	}
-	/*
-	 * 重置
-	 */
+	/** 重置*/
 	private void jb_resetActionPerformed(java.awt.event.ActionEvent evt) {
 		this.resetValue();
 	}
 
-	/*
-	 * 重置清空
-	 */
+	/** 重置清空*/
 	private void resetValue() {
 		this.userIDTxt.setText("");
 		this.userNameTxt.setText("");
