@@ -64,6 +64,12 @@ public class pieChart {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * 使用查询数据库的数据
+	 * 
+	 * @return 数据集
+	 * @throws Exception
+	 */
 	private static DefaultPieDataset getDataSet(String college) throws SQLException, Exception {
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		java.util.List<userMes> list = Check(college);
@@ -74,6 +80,13 @@ public class pieChart {
 		return dataset;
 	}
 
+	/**
+	 * 产生进行做柱状图的结果表
+	 * 
+	 * @return list 查询结果
+	 * @throws SQLException
+	 * @throws Exception
+	 */
 	public static java.util.List<userMes> Check(String college) throws SQLException, Exception {
 		Connection con = null;
 		con = Dbutil.getCon();

@@ -9,8 +9,11 @@ package pojo;
 import java.sql.Date;
 
 public class College {
+   //学院账号
 	private int id = -1;
+	//学院密码
 	private String password;
+	//学院名
 	private String college;
 
 	public College() {

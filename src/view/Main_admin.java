@@ -383,6 +383,13 @@ public class Main_admin extends javax.swing.JFrame {
 		return urls;
 	}
 
+	/**
+	 * 将查询结果写入excel中
+	 * 
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
 	private String Write(userMes user) throws Exception {
 		Vector columnName = new Vector();
 		columnName.add("学号/工号");
@@ -404,8 +411,11 @@ public class Main_admin extends javax.swing.JFrame {
 		return urls;
 	}
 
-	/*
-	 * 图表显示功能实现
+	/**
+	 * 查询结果显示为柱状
+	 * 
+	 * @param evt 响应事件
+	 * @throws Exception
 	 */
 	private void jb_graphActionPerformed(ActionEvent evt) throws Exception {
 		// TODO Auto-generated method stub
@@ -450,26 +460,26 @@ public class Main_admin extends javax.swing.JFrame {
 		}
 	}
 
-	/* 显示饼状图 */
+	/**
+	 * 填写情况依靠学院显示为饼状图
+	 * 
+	 * @param evt 相应事件
+	 * @throws Exception
+	 */
 	protected void jb_BgraphActionPerformed(ActionEvent evt) throws Exception {
 		String userCollege = this.collegeTxt.getText();
 		pieChart chart = new pieChart();
 		chart.pieChart1(userCollege);
 	}
 
-	/*
-	 * 查询功能实现
-	 */
+	/** 查询功能实现*/
 	private void jb_searchActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
 		userMes user = getUser();
 		this.fillTable(user);
 	}
 
-	/*public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Main_admin().setVisible(true);
-			}
-		});
-	}*/
+	/*
+	 * public static void main(String args[]) { java.awt.EventQueue.invokeLater(new
+	 * Runnable() { public void run() { new Main_admin().setVisible(true); } }); }
+	 */
 }

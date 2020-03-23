@@ -18,7 +18,7 @@ import util.IntUtil;
 import util.StringUtil;
 
 public class UserDao {
-
+	/** 老师学生防疫信息填写 */
 	public int userAdd(Connection con, userMes user) throws Exception {
 		String sql = "insert into mes(userId,userName,userSex,userCollege,userPro,"
 				+ "userCity,userTemperature,userArrive,userSympotom,userCheck,date) " + "values('" + user.getUserId()
@@ -29,6 +29,7 @@ public class UserDao {
 		return pstmt.executeUpdate();
 	}
 
+	/** admin界面所有防疫信息显示 */
 	public ResultSet StudentList(Connection con, userMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select * from mes");
 		if (user.getUserId() != -1) {
@@ -63,6 +64,14 @@ public class UserDao {
 		return pstmt.executeQuery();
 	}
 
+	/**
+	 * 依靠性别进行柱状图显示
+	 * 
+	 * @param con  连接数据库
+	 * @param user 实体化用户信息
+	 * @return
+	 * @throws Exception
+	 */
 	public ResultSet Chart(Connection con, userMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select userSex,count(distinct userId) as num from mes");
 		if (StringUtil.isNotEmpty(user.getUserPro())) {
@@ -90,6 +99,14 @@ public class UserDao {
 		return pstmt.executeQuery();
 	}
 
+	/**
+	 * 依靠确诊情况进行柱状图显示
+	 * 
+	 * @param con  连接数据库
+	 * @param user 实体化用户信息
+	 * @return
+	 * @throws Exception
+	 */
 	public ResultSet Chart1(Connection con, userMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select userCheck,count(distinct userId) as num from mes");
 
@@ -120,9 +137,18 @@ public class UserDao {
 		// PreparedStatement pstmt=con.prepareStatement(sb);
 		return pstmt.executeQuery();
 	}
-	
+
+	/**
+	 * 依靠确诊情况进行学院柱状图显示
+	 * 
+	 * @param con  连接数据库
+	 * @param user 实体化用户信息
+	 * @return
+	 * @throws Exception
+	 */
 	public ResultSet ChartCheck(Connection con, userMes user) throws Exception {
-		StringBuffer sb = new StringBuffer("select userCheck,count(distinct userId) as num from (select  * from college c,mes m where college=m.userCollege) as a");
+		StringBuffer sb = new StringBuffer(
+				"select userCheck,count(distinct userId) as num from (select  * from college c,mes m where college=m.userCollege) as a");
 		if (StringUtil.isNotEmpty(user.getUserSex())) {
 			sb.append(" and userSex like '%" + user.getUserSex() + "%'");
 		}
@@ -151,6 +177,14 @@ public class UserDao {
 		return pstmt.executeQuery();
 	}
 
+	/**
+	 * 依靠学院填写情况进行柱状图显示
+	 * 
+	 * @param con  连接数据库
+	 * @param user 实体化用户信息
+	 * @return
+	 * @throws Exception
+	 */
 	public ResultSet PieChart(Connection con, userMes user) throws Exception {
 		StringBuffer sb = new StringBuffer(
 				"select \"未填写\" as status ,count(user.id)-B.num as num from user,(select date,count(date) as num from mes");
@@ -167,15 +201,34 @@ public class UserDao {
 
 	}
 
+	/**
+	 * 显示登录学院的防疫信息
+	 * 
+	 * @param con 数据库连接
+	 * @param id  登录账号
+	 * @return
+	 * @throws Exception
+	 */
 	public ResultSet SelectedList(Connection con, int id) throws Exception {
 		String sql = "select  * from college c,mes m where c.id=? and c.college=m.userCollege ";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, id);
 		return pstmt.executeQuery();
-		
+
 	}
-	public ResultSet Select(Connection con,userMes user,String college) throws Exception {
-		StringBuffer sb = new StringBuffer("select *  from (select  * from college c,mes m where college=m.userCollege) as a");
+
+	/**
+	 * 学院内查询
+	 * 
+	 * @param con     数据库连接
+	 * @param user    实体化用户信息
+	 * @param college 当前登录学院
+	 * @return
+	 * @throws Exception
+	 */
+	public ResultSet Select(Connection con, userMes user, String college) throws Exception {
+		StringBuffer sb = new StringBuffer(
+				"select *  from (select  * from college c,mes m where college=m.userCollege) as a");
 		if (user.getUserId() != -1) {
 			sb.append(" and userId=" + user.getUserId());
 		}
@@ -208,9 +261,18 @@ public class UserDao {
 		return pstmt.executeQuery();
 	}
 
+	/**
+	 * 依靠性别进行学院柱状图显示
+	 * 
+	 * @param con  连接数据库
+	 * @param user 实体化用户信息
+	 * @return
+	 * @throws Exception
+	 */
 	public ResultSet ChartSex(Connection con, userMes user) throws SQLException {
 		// TODO Auto-generated method stub
-		StringBuffer sb = new StringBuffer("select userSex,count(distinct userId) as num from (select  * from college c,mes m where college=m.userCollege) as a");
+		StringBuffer sb = new StringBuffer(
+				"select userSex,count(distinct userId) as num from (select  * from college c,mes m where college=m.userCollege) as a");
 		if (StringUtil.isNotEmpty(user.getUserPro())) {
 			sb.append(" and userPro like '%" + user.getUserPro() + "%'");
 		}
@@ -232,7 +294,6 @@ public class UserDao {
 		}
 		sb.append(" group by userSex");
 		PreparedStatement pstmt = con.prepareStatement(sb.toString().replaceFirst("and", "where"));
-		// PreparedStatement pstmt=con.prepareStatement(sb);
 		return pstmt.executeQuery();
 	}
 }
