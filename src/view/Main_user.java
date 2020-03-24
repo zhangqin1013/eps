@@ -17,8 +17,8 @@ import java.util.Timer;
 import dao.UserDao;
 import fuction.TimeTrigger;
 import pojo.User;
-import pojo.userMes;
-import util.Dbutil;
+import pojo.UserMes;
+import util.DbUtil;
 import util.FloatUtil;
 import util.IntUtil;
 import util.StringUtil;
@@ -68,7 +68,7 @@ public class Main_user extends javax.swing.JFrame {
 	private javax.swing.JButton jb_reset;
 	private javax.swing.JButton jb_add;
 
-	Dbutil dbUtil = new Dbutil();
+	DbUtil dbUtil = new DbUtil();
 	UserDao userDao = new UserDao();
 
 	public Main_user() {
@@ -297,7 +297,7 @@ public class Main_user extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(this, "到校情况不能为空!");
 			return;
 		}
-		userMes user = new userMes(Integer.parseInt(userId), userName, userSex,userCollege, userPro,
+		UserMes user = new UserMes(Integer.parseInt(userId), userName, userSex,userCollege, userPro,
 				userCity, Float.parseFloat(userTemperature), userArrive,userSympotom, userCheck);
 		Connection con = null;
 		try {

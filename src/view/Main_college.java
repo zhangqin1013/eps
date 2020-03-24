@@ -25,8 +25,8 @@ import javax.swing.table.DefaultTableModel;
 import dao.UserDao;
 import fuction.ChartTest;
 import pojo.User;
-import pojo.userMes;
-import util.Dbutil;
+import pojo.UserMes;
+import util.DbUtil;
 import util.StringUtil;
 
 public class Main_college extends javax.swing.JFrame {
@@ -63,7 +63,7 @@ public class Main_college extends javax.swing.JFrame {
 	private JButton jb_graph;
 	private JTable userTable;
 	private String userCollege;
-	Dbutil dbUtil = new Dbutil();
+	DbUtil dbUtil = new DbUtil();
 	UserDao userDao = new UserDao();
 
 	/** 创建学院登录界面 */
@@ -72,7 +72,7 @@ public class Main_college extends javax.swing.JFrame {
 		// userCollege=college;
 		// userMes user = new userMes(college);
 		// this.setLocation(300, 70);
-		this.fillTable(new userMes());
+		this.fillTable(new UserMes());
 		this.setLocationRelativeTo(null);
 	}
 
@@ -81,9 +81,9 @@ public class Main_college extends javax.swing.JFrame {
 	 * 
 	 * @param user 实体化用户信息
 	 */
-	private void fillTable(userMes user) {
+	private void fillTable(UserMes user) {
 		DefaultTableModel dtm = (DefaultTableModel) userTable.getModel();
-		int currentcollegeID = logOn.currentCollege.getID();
+		int currentcollegeID = LogOn.currentCollege.getID();
 		dtm.setRowCount(0);
 		Connection con = null;
 		try {
@@ -127,9 +127,9 @@ public class Main_college extends javax.swing.JFrame {
 	 * 
 	 * @param user 实体化用户信息
 	 */
-	private void fillTable1(userMes user) {
+	private void fillTable1(UserMes user) {
 		DefaultTableModel dtm = (DefaultTableModel) userTable.getModel();
-		String currentcollege = logOn.currentCollege.getCollege();
+		String currentcollege = LogOn.currentCollege.getCollege();
 		dtm.setRowCount(0);
 		Connection con = null;
 		try {
@@ -344,7 +344,7 @@ public class Main_college extends javax.swing.JFrame {
 	 * @param userID
 	 * @throws Exception
 	 */
-	protected userMes getUser() throws Exception {
+	protected UserMes getUser() throws Exception {
 		// TODO Auto-generated method stub
 		String userID = this.idTxt.getText();
 		String userName = this.nameTxt.getText();
@@ -364,7 +364,7 @@ public class Main_college extends javax.swing.JFrame {
 
 		}
 		// System.out.print(date);
-		userMes user = new userMes(Integer.parseInt(userID), userName, userSex, college, userPro, userCity, userArrive,
+		UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, college, userPro, userCity, userArrive,
 				userCheck, Integer.parseInt(date));
 		return user;
 	}
@@ -398,7 +398,7 @@ public class Main_college extends javax.swing.JFrame {
 			if (StringUtil.isEmpty(userCheck)) {
 				userCheck = "是";
 			}
-			userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
+			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
 					userCheck, Integer.parseInt(date));
 			Connection con = null;
 			con = dbUtil.getCon();
@@ -406,7 +406,7 @@ public class Main_college extends javax.swing.JFrame {
 			ChartTest chart = new ChartTest();
 			chart.getChart1(rs);
 		} else {
-			userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
+			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
 					userCheck, Integer.parseInt(date));
 			// userMes user = getUser();
 			Connection con = null;
@@ -424,9 +424,9 @@ public class Main_college extends javax.swing.JFrame {
 	 * @throws Exception
 	 */
 	private void jb_searchActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
-		Dbutil.getCon();
+		DbUtil.getCon();
 
-		userMes user = getUser();
+		UserMes user = getUser();
 		this.fillTable1(user);
 	}
 

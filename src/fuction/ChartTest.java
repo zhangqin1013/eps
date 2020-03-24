@@ -31,7 +31,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-import util.Dbutil;
+import util.DbUtil;
 
 public class ChartTest {
 	ChartPanel frame1;

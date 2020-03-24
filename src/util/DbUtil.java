@@ -14,7 +14,7 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Dbutil {
+public class DbUtil {
 	private static String dbUrl = "jdbc:mysql://localhost:3306/mes?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false";
 	private static String dbUserName = "root";
 	private static String dbPassword = ":hksdaPoe3jE";

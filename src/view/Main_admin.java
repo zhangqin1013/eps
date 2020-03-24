@@ -19,15 +19,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import util.Dbutil;
+import util.DbUtil;
 
 import dao.UserDao;
 import fuction.ChartTest;
 import fuction.DBtoExcel;
-import fuction.pieChart;
+import fuction.PieChart;
 import pojo.Admin;
 import pojo.User;
-import pojo.userMes;
+import pojo.UserMes;
 import util.StringUtil;
 
 public class Main_admin extends javax.swing.JFrame {
@@ -71,18 +71,18 @@ public class Main_admin extends javax.swing.JFrame {
 	private javax.swing.JButton jb_excel;
 	private javax.swing.JTable userTable;
 
-	Dbutil dbUtil = new Dbutil();
+	DbUtil dbUtil = new DbUtil();
 	UserDao userDao = new UserDao();
 
 	/** 防疫办显示界面 */
 	public Main_admin() {
 		initComponents();
 		this.setLocation(300, 70);
-		this.fillTable(new userMes());
+		this.fillTable(new UserMes());
 		this.setLocationRelativeTo(null);
 	}
 
-	private void fillTable(userMes user) {
+	private void fillTable(UserMes user) {
 		DefaultTableModel dtm = (DefaultTableModel) userTable.getModel();
 		dtm.setRowCount(0);
 		Connection con = null;
@@ -344,7 +344,7 @@ public class Main_admin extends javax.swing.JFrame {
 	 * @param userID
 	 * @throws Exception
 	 */
-	protected userMes getUser() throws Exception {
+	protected UserMes getUser() throws Exception {
 		// TODO Auto-generated method stub
 		String userID = this.idTxt.getText();
 		String userName = this.nameTxt.getText();
@@ -364,7 +364,7 @@ public class Main_admin extends javax.swing.JFrame {
 
 		}
 		// System.out.print(date);
-		userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+		UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 				userArrive, userCheck, Integer.parseInt(date));
 		return user;
 	}
@@ -378,7 +378,7 @@ public class Main_admin extends javax.swing.JFrame {
 	protected String jb_excelActionPerformed(ActionEvent evt) throws Exception {
 		// TODO Auto-generated method stub
 		DBtoExcel dBtoExcel = new DBtoExcel();
-		userMes user = getUser();
+		UserMes user = getUser();
 		String urls = this.Write(user);
 		return urls;
 	}
@@ -390,7 +390,7 @@ public class Main_admin extends javax.swing.JFrame {
 	 * @return
 	 * @throws Exception
 	 */
-	private String Write(userMes user) throws Exception {
+	private String Write(UserMes user) throws Exception {
 		Vector columnName = new Vector();
 		columnName.add("学号/工号");
 		columnName.add("姓名");
@@ -441,7 +441,7 @@ public class Main_admin extends javax.swing.JFrame {
 				userCheck = "是";
 
 			}
-			userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 					userArrive, userCheck, Integer.parseInt(date));
 			Connection con = null;
 			con = dbUtil.getCon();
@@ -449,7 +449,7 @@ public class Main_admin extends javax.swing.JFrame {
 			ChartTest chart = new ChartTest();
 			chart.getChart1(rs);
 		} else {
-			userMes user = new userMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 					userArrive, userCheck, Integer.parseInt(date));
 			// userMes user = getUser();
 			Connection con = null;
@@ -468,13 +468,13 @@ public class Main_admin extends javax.swing.JFrame {
 	 */
 	protected void jb_BgraphActionPerformed(ActionEvent evt) throws Exception {
 		String userCollege = this.collegeTxt.getText();
-		pieChart chart = new pieChart();
+		PieChart chart = new PieChart();
 		chart.pieChart1(userCollege);
 	}
 
 	/** 查询功能实现*/
 	private void jb_searchActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
-		userMes user = getUser();
+		UserMes user = getUser();
 		this.fillTable(user);
 	}
 

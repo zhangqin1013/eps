@@ -1,4 +1,5 @@
 package pojo;
+import java.math.BigDecimal;
 /**
  * FileName: Admin.java
  * 防控信息办登录实体类
@@ -6,7 +7,7 @@ package pojo;
  * @Date  2020.03.19
  */
 import java.util.Date;
-public class userMes {
+public class UserMes {
 	private int userId=-1;
 	private String userName;
 	private String userSex;
@@ -17,14 +18,14 @@ public class userMes {
 	private String userSympotom;
 	private String userCheck;
 	private int date;
-	private float userTemperature;
+	private Float userTemperature;
 	private int num;//填报人数
 	private String status;
-	public userMes() {
+	public UserMes() {
 		super();
 	}
-	public userMes(int id, String name, String sex, String college, String province, String city,
-				float tem,String school, String sy0, String sy1) {
+	public UserMes(int id, String name, String sex, String college, String province, String city,
+			 Float tem,String school, String sy0, String sy1) {
 			  // TODO Auto-generated constructor stub
 		super();
 		this.userId=id;
@@ -39,7 +40,7 @@ public class userMes {
 		this.userCheck = sy1;
 		this.date=date;
 	}
-	public userMes(int id,String name, String sex,String pro,String city, 
+	public UserMes(int id,String name, String sex,String pro,String city, 
 			String school,String sy1,int date) {
 		
 		// TODO Auto-generated constructor stub
@@ -56,7 +57,7 @@ public class userMes {
 		this.userCheck = sy1;
 		this.date=date;
 	}
-	public userMes(int id,String name, String sex,String college,String pro,String city, 
+	public UserMes(int id,String name, String sex,String college,String pro,String city, 
 			String school,String sy1,int date) {
 		
 		// TODO Auto-generated constructor stub
@@ -73,27 +74,27 @@ public class userMes {
 		this.userCheck = sy1;
 		this.date=date;
 	}
-	public userMes(String college) {
+	public UserMes(String college) {
 		
 		// TODO Auto-generated constructor stub
 		super();
 		this.userCollege=college;
 		//this.userName = name;
 	}
-	public userMes(int id,String name) {
+	public UserMes(int id,String name) {
 		
 		// TODO Auto-generated constructor stub
 		super();
 		this.userId=id;
 		this.userName = name;
 	}
-	public userMes(String status, int num) {
+	public UserMes(String status, int num) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.status=status;
 		this.num=num;
 	}
-	public userMes(int date) {
+	public UserMes(int date) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.date=date;
@@ -158,10 +159,10 @@ public class userMes {
 	public void setDate(int date) {
 		this.date = date;
 	}
-	public float getUserTemperature() {
+	public Float getUserTemperature() {
 		return userTemperature;
 	}
-	public void setUserTemperature(float userTemperature) {
+	public void setUserTemperature(Float userTemperature) {
 		this.userTemperature = userTemperature;
 	}
 	public int getNum() {

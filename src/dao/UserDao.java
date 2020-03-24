@@ -13,13 +13,13 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import pojo.User;
-import pojo.userMes;
+import pojo.UserMes;
 import util.IntUtil;
 import util.StringUtil;
 
 public class UserDao {
 	/** 老师学生防疫信息填写 */
-	public int userAdd(Connection con, userMes user) throws Exception {
+	public int userAdd(Connection con, UserMes user) throws Exception {
 		String sql = "insert into mes(userId,userName,userSex,userCollege,userPro,"
 				+ "userCity,userTemperature,userArrive,userSympotom,userCheck,date) " + "values('" + user.getUserId()
 				+ "','" + user.getUserName() + "'," + "'" + user.getUserSex() + "','" + user.getUserCollege() + "','"
@@ -30,7 +30,7 @@ public class UserDao {
 	}
 
 	/** admin界面所有防疫信息显示 */
-	public ResultSet StudentList(Connection con, userMes user) throws Exception {
+	public ResultSet StudentList(Connection con, UserMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select * from mes");
 		if (user.getUserId() != -1) {
 			sb.append(" and userId=" + user.getUserId());
@@ -72,7 +72,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet Chart(Connection con, userMes user) throws Exception {
+	public ResultSet Chart(Connection con, UserMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select userSex,count(distinct userId) as num from mes");
 		if (StringUtil.isNotEmpty(user.getUserPro())) {
 			sb.append(" and userPro like '%" + user.getUserPro() + "%'");
@@ -107,7 +107,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet Chart1(Connection con, userMes user) throws Exception {
+	public ResultSet Chart1(Connection con, UserMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select userCheck,count(distinct userId) as num from mes");
 
 		if (StringUtil.isNotEmpty(user.getUserSex())) {
@@ -146,7 +146,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet ChartCheck(Connection con, userMes user) throws Exception {
+	public ResultSet ChartCheck(Connection con, UserMes user) throws Exception {
 		StringBuffer sb = new StringBuffer(
 				"select userCheck,count(distinct userId) as num from (select  * from college c,mes m where college=m.userCollege) as a");
 		if (StringUtil.isNotEmpty(user.getUserSex())) {
@@ -185,7 +185,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet PieChart(Connection con, userMes user) throws Exception {
+	public ResultSet PieChart(Connection con, UserMes user) throws Exception {
 		StringBuffer sb = new StringBuffer(
 				"select \"未填写\" as status ,count(user.id)-B.num as num from user,(select date,count(date) as num from mes");
 		if (user.getDate() > 0) {
@@ -226,7 +226,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet Select(Connection con, userMes user, String college) throws Exception {
+	public ResultSet Select(Connection con, UserMes user, String college) throws Exception {
 		StringBuffer sb = new StringBuffer(
 				"select *  from (select  * from college c,mes m where college=m.userCollege) as a");
 		if (user.getUserId() != -1) {
@@ -269,7 +269,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet ChartSex(Connection con, userMes user) throws SQLException {
+	public ResultSet ChartSex(Connection con, UserMes user) throws SQLException {
 		// TODO Auto-generated method stub
 		StringBuffer sb = new StringBuffer(
 				"select userSex,count(distinct userId) as num from (select  * from college c,mes m where college=m.userCollege) as a");

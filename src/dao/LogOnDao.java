@@ -24,7 +24,8 @@ public class LogOnDao {
 	 * @return ·µ»Ø½á¹û
 	 * @throws Exception
 	 */
-	public User login(Connection con, User student) throws Exception {
+	public User login(Connection con, User student) throws Exception
+	{
 		User resultStu = null;
 		String sql = "select * from user where id=? and password=?";
 		PreparedStatement pstmt = con.prepareStatement(sql);

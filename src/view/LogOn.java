@@ -21,11 +21,11 @@ import fuction.TimeTrigger;
 import pojo.Admin;
 import pojo.User;
 import pojo.College;
-import util.Dbutil;
+import util.DbUtil;
 import util.StringUtil;
 
 /** 登录界面*/
-public class logOn extends JFrame {
+public class LogOn extends JFrame {
 	// 表示登录身份
 	private ButtonGroup buttonGroup1;
 	private JLabel jLabel1;
@@ -44,7 +44,7 @@ public class logOn extends JFrame {
 	private javax.swing.JFormattedTextField userNameTxt;
 	private javax.swing.JPasswordField passwordTxt;
 	// 数据库连接
-	Dbutil dbutil = new Dbutil();
+	DbUtil dbutil = new DbUtil();
 	LogOnDao logOnDao = new LogOnDao();
 	// 用户实例
 	public static User currentUser;
@@ -52,7 +52,7 @@ public class logOn extends JFrame {
 	public static College currentCollege;
 	public static Admin currentAdmin;
 
-	public logOn() {
+	public LogOn() {
 		initComponents();
 		this.setLocationRelativeTo(null);
 		this.userButton.setSelected(true);
@@ -292,14 +292,6 @@ public class logOn extends JFrame {
 		this.adminButton.setSelected(true);
 	}
 
-	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new logOn().setVisible(true);
-			}
-		});
-	}
-
 	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
 
 	private static final long TEST_SEC = 15 * 1000;
@@ -334,7 +326,7 @@ public class logOn extends JFrame {
 		// System.out.println("当前时间:" + new Date());
 	}
 
-	// 增加一天
+	/** 增加一天*/
 	public Date addDay(Date date, int num) {
 		JOptionPane.showMessageDialog(null, "错过打卡时间!");
 		Calendar startDT = Calendar.getInstance();
@@ -342,4 +334,13 @@ public class logOn extends JFrame {
 		startDT.add(Calendar.DAY_OF_MONTH, num);
 		return startDT.getTime();
 	}
+	
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new LogOn().setVisible(true);
+			}
+		});
+	}
+
 }

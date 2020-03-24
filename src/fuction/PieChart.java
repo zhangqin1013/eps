@@ -28,10 +28,10 @@ import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
-import pojo.userMes;
-import util.Dbutil;
+import pojo.UserMes;
+import util.DbUtil;
 
-public class pieChart {
+public class PieChart {
 	ChartPanel frame1;
 	public String College = null;
 
@@ -72,9 +72,9 @@ public class pieChart {
 	 */
 	private static DefaultPieDataset getDataSet(String college) throws SQLException, Exception {
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		java.util.List<userMes> list = Check(college);
+		java.util.List<UserMes> list = Check(college);
 		// 装成JFreeChart需要的数据集
-		for (userMes usermes : list) {
+		for (UserMes usermes : list) {
 			dataset.setValue(usermes.getStatus(), usermes.getNum());
 		}
 		return dataset;
@@ -87,11 +87,11 @@ public class pieChart {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	public static java.util.List<userMes> Check(String college) throws SQLException, Exception {
+	public static java.util.List<UserMes> Check(String college) throws SQLException, Exception {
 		Connection con = null;
-		con = Dbutil.getCon();
+		con = DbUtil.getCon();
 		// String col = College;
-		java.util.List<userMes> list = new ArrayList<userMes>();
+		java.util.List<UserMes> list = new ArrayList<UserMes>();
 		try {
 			String sql = "select  \"未填写\" as status ,count(id) as num from user where not exists(select 1 from mes where mes.userCollege='"
 					+ college
@@ -100,7 +100,7 @@ public class pieChart {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				list.add(new userMes(rs.getString(1), rs.getInt(2)));
+				list.add(new UserMes(rs.getString(1), rs.getInt(2)));
 			}
 		} catch (SQLException e) {
 			// TODO: handle exception
