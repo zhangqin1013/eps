@@ -129,12 +129,14 @@ public class Main_college extends javax.swing.JFrame {
 	 */
 	private void fillTable1(UserMes user) {
 		DefaultTableModel dtm = (DefaultTableModel) userTable.getModel();
+		int currentcollegeID = LogOn.currentCollege.getID();
+	
 		String currentcollege = LogOn.currentCollege.getCollege();
 		dtm.setRowCount(0);
 		Connection con = null;
 		try {
 			con = dbUtil.getCon();
-			ResultSet rs = userDao.Select(con, user, currentcollege);
+			ResultSet rs = userDao.Select(con, user, currentcollegeID);
 			int num = 0;
 			while (rs.next()) {
 				num++;
@@ -377,6 +379,7 @@ public class Main_college extends javax.swing.JFrame {
 	 */
 	protected void jb_graphActionPerformed(ActionEvent evt) throws Exception {
 		// TODO Auto-generated method stub
+		int currentcollegeID = LogOn.currentCollege.getID();
 		String userID = this.idTxt.getText();
 		String userName = this.nameTxt.getText();
 		String userSex = this.sexTxt.getText();
@@ -396,22 +399,28 @@ public class Main_college extends javax.swing.JFrame {
 			if (StringUtil.isEmpty(userCheck)) {
 				userCheck = "ÊÇ";
 			}
-			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
-					userCheck, Integer.parseInt(date));
-			Connection con = null;
-			con = dbUtil.getCon();
-			ResultSet rs = userDao.ChartSex(con, user);
-			ChartTest chart = new ChartTest();
-			chart.getChartSex(rs);
+			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+					userArrive, userCheck, Integer.parseInt(date));
+			if (userID == "-1" && StringUtil.isEmpty(userName)) {
+				Connection con = null;
+				con = dbUtil.getCon();
+				ResultSet rs = userDao.Chart(con, user);
+				ChartTest chart = new ChartTest();
+				chart.getChartSex(rs);
+			}
+
 		} else {
-			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
-					userCheck, Integer.parseInt(date));
+			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
+					userArrive, userCheck, Integer.parseInt(date));
 			// userMes user = getUser();
-			Connection con = null;
-			con = dbUtil.getCon();
-			ResultSet rs = userDao.ChartCheck(con, user);
-			ChartTest chart = new ChartTest();
-			chart.getChartCheck(rs);
+			if (userID == "-1" && StringUtil.isEmpty(userName)) {
+				Connection con = null;
+				con = dbUtil.getCon();
+				ResultSet rs = userDao.ChartCheckAll(con, user);
+				ChartTest chart = new ChartTest();
+				chart.getChartCheck(rs);
+			}
+
 		}
 	}
 
@@ -423,7 +432,6 @@ public class Main_college extends javax.swing.JFrame {
 	 */
 	private void jb_searchActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
 		DbUtil.getCon();
-
 		UserMes user = getUser();
 		this.fillTable1(user);
 	}

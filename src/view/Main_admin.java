@@ -217,7 +217,7 @@ public class Main_admin extends javax.swing.JFrame {
 			}
 		});
 
-		jb_Bgraph.setText("当日填报情况");
+		jb_Bgraph.setText("学院填报情况");
 		jb_Bgraph.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
@@ -363,7 +363,6 @@ public class Main_admin extends javax.swing.JFrame {
 			date = "-1";
 
 		}
-		// System.out.print(date);
 		UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 				userArrive, userCheck, Integer.parseInt(date));
 		return user;
@@ -443,20 +442,26 @@ public class Main_admin extends javax.swing.JFrame {
 			}
 			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 					userArrive, userCheck, Integer.parseInt(date));
-			Connection con = null;
-			con = dbUtil.getCon();
-			ResultSet rs = userDao.Chart(con, user);
-			ChartTest chart = new ChartTest();
-			chart.getChartSex(rs);
+			if (userID == "-1" && StringUtil.isEmpty(userName)) {
+				Connection con = null;
+				con = dbUtil.getCon();
+				ResultSet rs = userDao.Chart(con, user);
+				ChartTest chart = new ChartTest();
+				chart.getChartSex(rs);
+			}
+
 		} else {
 			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 					userArrive, userCheck, Integer.parseInt(date));
 			// userMes user = getUser();
-			Connection con = null;
-			con = dbUtil.getCon();
-			ResultSet rs = userDao.ChartCheckAll(con, user);
-			ChartTest chart = new ChartTest();
-			chart.getChartCheck(rs);
+			if (userID == "-1" && StringUtil.isEmpty(userName)) {
+				Connection con = null;
+				con = dbUtil.getCon();
+				ResultSet rs = userDao.ChartCheckAll(con, user);
+				ChartTest chart = new ChartTest();
+				chart.getChartCheck(rs);
+			}
+
 		}
 	}
 
@@ -472,14 +477,9 @@ public class Main_admin extends javax.swing.JFrame {
 		chart.pieChart1(userCollege);
 	}
 
-	/** 查询功能实现*/
+	/** 查询功能实现 */
 	private void jb_searchActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
 		UserMes user = getUser();
 		this.fillTable(user);
 	}
-
-	/*
-	 * public static void main(String args[]) { java.awt.EventQueue.invokeLater(new
-	 * Runnable() { public void run() { new Main_admin().setVisible(true); } }); }
-	 */
 }

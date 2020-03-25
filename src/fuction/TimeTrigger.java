@@ -20,9 +20,7 @@ public class TimeTrigger extends TimerTask {
 
 	@Override
 	public void run() {
-
 		JOptionPane.showMessageDialog(null, "打卡时间还有五分钟截止!");
-
 	}
 
 }

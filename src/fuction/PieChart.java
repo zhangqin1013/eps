@@ -37,7 +37,7 @@ public class PieChart {
 
 	public void pieChart1(String college) throws SQLException, Exception {
 		DefaultPieDataset data = getDataSet(college);
-		JFreeChart chart = ChartFactory.createPieChart3D("填报情况", data, true, false, false);
+		JFreeChart chart = ChartFactory.createPieChart3D("学院填报情况", data, true, false, false);
 		// 设置百分比
 		PiePlot pieplot = (PiePlot) chart.getPlot();
 		DecimalFormat df = new DecimalFormat("0.00%");// 获得一个DecimalFormat对象，主要是设置小数问题
@@ -58,8 +58,8 @@ public class PieChart {
 		piePlot.setLabelFont(new Font("宋体", Font.BOLD, 10));// 解决乱码
 		chart.getLegend().setItemFont(new Font("黑体", Font.BOLD, 10));
 
-		JFrame frame = new JFrame("柱状图");
-		frame.add(frame1); // 添加柱形图
+		JFrame frame = new JFrame("饼状图");
+		frame.add(frame1); 
 		frame.setBounds(50, 50, 800, 600);
 		frame.setVisible(true);
 	}

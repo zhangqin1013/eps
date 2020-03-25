@@ -207,7 +207,8 @@ public class LogOn extends JFrame {
 				currentUser = logOnDao.login(con, user);
 				if (currentUser != null) {
 					this.dispose();
-					//
+					new Main_user().timeTig();
+					new Main_user().timeTigAlarm();
 					new Main_user().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(this, "用户名或密码错误!");
@@ -234,8 +235,9 @@ public class LogOn extends JFrame {
 				// currentUser = logOnDao.login(con, user);
 				if (currentAdmin != null) {
 					this.dispose();
-
+					//new Main_user().timeTig();
 					new Main_admin().setVisible(true);
+					
 				} else {
 					JOptionPane.showMessageDialog(this, "用户名或密码错误!");
 				}
@@ -292,54 +294,11 @@ public class LogOn extends JFrame {
 		this.adminButton.setSelected(true);
 	}
 
-	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
 
-	private static final long TEST_SEC = 15 * 1000;
-
-	public static void timeTig() {
-
-		// 使用默认时区和语言环境获得一个日历
-
-		Calendar calendar = Calendar.getInstance();
-
-		// 设置时间
-
-		calendar.set(Calendar.HOUR_OF_DAY, 12);// 小时
-
-		calendar.set(Calendar.MINUTE, 23);// 分钟
-
-		calendar.set(Calendar.SECOND, 0);// 秒
-
-		// 第一次执行任务的时间
-
-		Date time = calendar.getTime();
-
-		// 如果第一次执行任务的时间早于当前时间，那么第一次执行任务的时间推迟一天
-		if (time.before(new Date())) {
-			time = addDay(time, 1);
-			System.exit(0);
-		}
-		// System.out.println("启动时间:" + time);
-		// 启动计划
-		Timer timer = new Timer();
-		timer.schedule(new TimeTrigger(), time, PERIOD_DAY);
-		// System.out.println("当前时间:" + new Date());
-	}
-
-	/** 增加一天*/
-	public static Date addDay(Date date, int num) {
-		JOptionPane.showMessageDialog(null, "错过打卡时间!");
-		Calendar startDT = Calendar.getInstance();
-		startDT.setTime(date);
-		startDT.add(Calendar.DAY_OF_MONTH, num);
-		return startDT.getTime();
-	}
-	
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new LogOn().setVisible(true);
-				timeTig();
 			}
 		});
 	}
