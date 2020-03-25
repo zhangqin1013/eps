@@ -107,7 +107,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultSet Chart1(Connection con, UserMes user) throws Exception {
+	public ResultSet ChartCheckAll(Connection con, UserMes user) throws Exception {
 		StringBuffer sb = new StringBuffer("select userCheck,count(distinct userId) as num from mes");
 
 		if (StringUtil.isNotEmpty(user.getUserSex())) {
@@ -177,29 +177,6 @@ public class UserDao {
 		return pstmt.executeQuery();
 	}
 
-	/**
-	 * 依靠学院填写情况进行柱状图显示
-	 * 
-	 * @param con  连接数据库
-	 * @param user 实体化用户信息
-	 * @return
-	 * @throws Exception
-	 */
-	public ResultSet PieChart(Connection con, UserMes user) throws Exception {
-		StringBuffer sb = new StringBuffer(
-				"select \"未填写\" as status ,count(user.id)-B.num as num from user,(select date,count(date) as num from mes");
-		if (user.getDate() > 0) {
-			sb.append(" and DATE_FORMAT(date,'%Y%m%d ') =" + user.getDate());
-		}
-		PreparedStatement pstmt = con.prepareStatement(sb.toString().replaceFirst("and", "where"));
-		sb.append(" as B GROUP BY date UNION select \"填写\"as status,count(date) from mes");
-		if (user.getDate() > 0) {
-			sb.append(" and DATE_FORMAT(date,'%Y%m%d') =" + user.getDate());
-		}
-		PreparedStatement pstmt1 = con.prepareStatement(sb.toString().replaceFirst("and", "where"));
-		return pstmt.executeQuery();
-
-	}
 
 	/**
 	 * 显示登录学院的防疫信息

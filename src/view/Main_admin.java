@@ -447,16 +447,16 @@ public class Main_admin extends javax.swing.JFrame {
 			con = dbUtil.getCon();
 			ResultSet rs = userDao.Chart(con, user);
 			ChartTest chart = new ChartTest();
-			chart.getChart1(rs);
+			chart.getChartSex(rs);
 		} else {
 			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userCollege, userPro, userCity,
 					userArrive, userCheck, Integer.parseInt(date));
 			// userMes user = getUser();
 			Connection con = null;
 			con = dbUtil.getCon();
-			ResultSet rs = userDao.Chart1(con, user);
+			ResultSet rs = userDao.ChartCheckAll(con, user);
 			ChartTest chart = new ChartTest();
-			chart.getChart2(rs);
+			chart.getChartCheck(rs);
 		}
 	}
 

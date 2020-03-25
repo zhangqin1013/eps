@@ -296,7 +296,7 @@ public class LogOn extends JFrame {
 
 	private static final long TEST_SEC = 15 * 1000;
 
-	public void timeTig() {
+	public static void timeTig() {
 
 		// 使用默认时区和语言环境获得一个日历
 
@@ -304,9 +304,9 @@ public class LogOn extends JFrame {
 
 		// 设置时间
 
-		calendar.set(Calendar.HOUR_OF_DAY, 9);// 小时
+		calendar.set(Calendar.HOUR_OF_DAY, 12);// 小时
 
-		calendar.set(Calendar.MINUTE, 55);// 分钟
+		calendar.set(Calendar.MINUTE, 23);// 分钟
 
 		calendar.set(Calendar.SECOND, 0);// 秒
 
@@ -327,7 +327,7 @@ public class LogOn extends JFrame {
 	}
 
 	/** 增加一天*/
-	public Date addDay(Date date, int num) {
+	public static Date addDay(Date date, int num) {
 		JOptionPane.showMessageDialog(null, "错过打卡时间!");
 		Calendar startDT = Calendar.getInstance();
 		startDT.setTime(date);
@@ -339,6 +339,7 @@ public class LogOn extends JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new LogOn().setVisible(true);
+				timeTig();
 			}
 		});
 	}

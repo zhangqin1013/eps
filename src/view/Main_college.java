@@ -387,11 +387,9 @@ public class Main_college extends javax.swing.JFrame {
 		String date = this.dateTxt.getText();
 		if (StringUtil.isEmpty(userID)) {
 			userID = "-1";
-
 		}
 		if (StringUtil.isEmpty(date)) {
 			date = "-1";
-
 		}
 
 		if (StringUtil.isEmpty(userSex)) {
@@ -404,7 +402,7 @@ public class Main_college extends javax.swing.JFrame {
 			con = dbUtil.getCon();
 			ResultSet rs = userDao.ChartSex(con, user);
 			ChartTest chart = new ChartTest();
-			chart.getChart1(rs);
+			chart.getChartSex(rs);
 		} else {
 			UserMes user = new UserMes(Integer.parseInt(userID), userName, userSex, userPro, userCity, userArrive,
 					userCheck, Integer.parseInt(date));
@@ -413,7 +411,7 @@ public class Main_college extends javax.swing.JFrame {
 			con = dbUtil.getCon();
 			ResultSet rs = userDao.ChartCheck(con, user);
 			ChartTest chart = new ChartTest();
-			chart.getChart2(rs);
+			chart.getChartCheck(rs);
 		}
 	}
 

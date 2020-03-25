@@ -37,7 +37,7 @@ public class ChartTest {
 	ChartPanel frame1;
 
 	// 某天确诊人数统计
-	public void getChart1(ResultSet rs) throws Exception {
+	public void getChartSex(ResultSet rs) throws Exception {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		while (rs.next()) {
 			dataset.setValue(rs.getInt("num"), "人数", rs.getString("userSex"));
@@ -75,7 +75,7 @@ public class ChartTest {
 		// Dbutil.closeCon(rs, stmt, conn);
 	}
 
-	public void getChart2(ResultSet rs) throws Exception {
+	public void getChartCheck(ResultSet rs) throws Exception {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		while (rs.next()) {
 			dataset.setValue(rs.getInt("num"), "人数", rs.getString("userCheck"));
